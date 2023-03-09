@@ -40,53 +40,29 @@ class SeriesController extends Controller
     }
     public function store(Request $request)
     {
-        // $nome= $request->input('nome');
-        // $nome = $request->nome;
-        // // if (DB::insert('insert into laravel_alura (nomeSerie) values (?)', [$nome])){
-        // //     return redirect('/series','302');
-        // // }        
-        // $serie = new laravel_alura();
-        // $serie->nomeSerie=$nome;
-        // $serie->save();
-        // dd($request->all());
         $serie=laravel_alura::create($request->all());
         $serie=$serie->nomeSerie;
         $request->session()->flash('mensagem.sucesso',"Serie {$serie} inserida.");
         return redirect('/series');
-
     }
-
-    // public function destroy(laravel_alura $serie,Request $request)
-    // {
-        
-    //     $serie=laravel_alura::find($request->id);
-    //     // // $serie=laravel_alura::where('nomeSerie',$request->nomeSerie)->first();   
-    //     // // dd($serie);     
-    //     // laravel_alura::destroy($request->id);
-    //     // $request->session()->put("mensagem.sucesso","Serie {$serie->nomeSerie} emovida com sucesso");
-    //     // return redirect('series');
-        
-    // }
-
     public function destroy(laravel_alura $id)
     {   
         // dd($id);
         $id->delete();
         return redirect('series')->with('mensagem.sucesso',"Serie {$id->nomeSerie} removida.");
     }
-
     public function modificar(laravel_alura $id)
-    {   $seriaa=$id->nomeSerie;
-        // dd($id);
+    {   $seriaa=$id;
+        // dd($seriaa);
         return view('series.edit',['seria'=>$seriaa]);
     }
-
-    public function update(laravel_alura $id,Request $request)
-
-    {
-        $novonome=$request->input('nomeSerie');
-        $id->nomeSerie=$novonome;
+    public function update(Request $request,laravel_alura $id)
+    {   
+        // $novonome=$request->input('nomeSerie');
+        // dd($request->input());
+        // $id->nomeSerie=$novonome;
+        $id->fill($request->input());
         $id->save();
-        return redirect('/serie')->with('mensagem.sucesso',"Serie {$id->nomeSerie} modificada.");
+        return redirect('/series')->with('mensagem.sucesso',"Serie {$id->nomeSerie} modificada.");
     }
 }
