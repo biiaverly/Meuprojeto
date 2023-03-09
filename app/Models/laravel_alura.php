@@ -11,4 +11,9 @@ class laravel_alura extends Model
     protected $table="laravel_alura";
     protected $fillable = ['nomeSerie'];
 
+    public function temporadas()
+    {
+        return $this->hasMany(temporada::class,'series.id');
+    }
+
 }

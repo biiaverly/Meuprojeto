@@ -47,12 +47,13 @@ class SeriesController extends Controller
     }
     public function destroy(laravel_alura $id)
     {   
-        // dd($id);
         $id->delete();
         return redirect('series')->with('mensagem.sucesso',"Serie {$id->nomeSerie} removida.");
     }
     public function modificar(laravel_alura $id)
-    {   $seriaa=$id;
+    {
+        // dd($id->temporadas());
+           $seriaa=$id;
         // dd($seriaa);
         return view('series.edit',['seria'=>$seriaa]);
     }
