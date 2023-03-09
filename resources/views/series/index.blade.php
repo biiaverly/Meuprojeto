@@ -13,7 +13,7 @@
         {{ $serie->nomeSerie }}
 
         <span class="d-flex">
-          <a href="{{route('edit',$serie->id)}}" class="btn btn-primary btn-sm">
+          <a href="{{route('modificar',$serie->id)}}" class="btn btn-primary btn-sm" >
             E
             </a>
           <form action="{{ route('destroy', $serie->id) }}" method="post">

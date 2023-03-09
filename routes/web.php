@@ -18,7 +18,7 @@ use PhpParser\Builder\Function_;
 |
 */
 Route::get('/', function () {
-    return view('/series');
+    return view('/series','index');
 });
 // Route::resource('/series',SeriesController::class)->only(['index','create','store']);
 Route::controller(SeriesController::class)->group(function(){
@@ -28,6 +28,6 @@ Route::controller(SeriesController::class)->group(function(){
 });
 
 Route::post('/series/destroy/{id}',[SeriesController::class,'destroy'])->name('destroy');
-Route::post('/series/edit/{id}',[SeriesController::class,'edit'])->name('edit');
+Route::get('/series/modificar/{id}',[SeriesController::class,'modificar'])->name('modificar');
 
 

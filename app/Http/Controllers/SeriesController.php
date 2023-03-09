@@ -74,4 +74,19 @@ class SeriesController extends Controller
         $id->delete();
         return redirect('series')->with('mensagem.sucesso',"Serie {$id->nomeSerie} removida.");
     }
+
+    public function modificar(laravel_alura $id)
+    {   $seriaa=$id->nomeSerie;
+        // dd($id);
+        return view('series.edit',['seria'=>$seriaa]);
+    }
+
+    public function update(laravel_alura $id,Request $request)
+
+    {
+        $novonome=$request->input('nomeSerie');
+        $id->nomeSerie=$novonome;
+        $id->save();
+        return redirect('/serie')->with('mensagem.sucesso',"Serie {$id->nomeSerie} modificada.");
+    }
 }
