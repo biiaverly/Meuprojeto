@@ -3,29 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\laravel_alura;
+use App\Models\temporada;
 use Illuminate\Support\Facades\DB;
 
 
 use Illuminate\Http\Request;
 
+use function GuzzleHttp\Promise\all;
+
 class SeriesController extends Controller
 {
     public function index(Request $request)
     {
-    //     $series =[
-    //         'Lost',
-    //         'How i meet your mother',
-    //         'Friends'
-    //     ];
 
-    // $series= DB::select('SELECT nomeSerie FROM laravel_alura;');
-
-        // $series= laravel_alura::all();
-        // return view('series.index',[
-        //     'series'=>$series
-        // ]);        
-
-        $series= laravel_alura::query()->orderBy('nomeSerie')->get();
+        //ordenado dentro do modelo
+        $series= laravel_alura::query()->get(['*']);
+        // $series=laravel_alura::with('temporadas')->get();
+        // dd($series);
         $mensagemSucesso = $request->session()->get('mensagem.sucesso');
         $request->session()->forget('mensagem.sucesso');
 
@@ -39,9 +33,26 @@ class SeriesController extends Controller
 
     }
     public function store(Request $request)
-    {
-        $serie=laravel_alura::create($request->all());
-        $serie=$serie->nomeSerie;
+    {   
+        // dd(laravel_alura::query()->get(['*']));
+        $seriejson=laravel_alura::create($request->all());
+        // dd($request->episodiosqt);
+        $serie=$seriejson->nomeSerie;
+
+        for ($i=1; $i < $request->numerotemp; $i++) 
+        { 
+            $temporada=$seriejson->temporadas()->create([
+                'id'=>$i
+            ]);      
+        }
+
+        for ($j=1; $j < $request->numerotemp; $j++) 
+        { 
+            $episodios=$temporada->episodio()->create([
+                'id'=>$j
+            ]);      
+        }
+    
         $request->session()->flash('mensagem.sucesso',"Serie {$serie} inserida.");
         return redirect('/series');
     }

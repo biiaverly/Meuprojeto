@@ -14,7 +14,6 @@ return new class extends Migration
         Schema::create('epsodios', function (Blueprint $table) {
             $table->id();
             $table->unsignedTinyInteger('numero');
-            $table->timestamps();
         });
     }
 
