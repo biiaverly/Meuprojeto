@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SerieFormRequest;
+use App\Models\epsodio;
 use App\Models\laravel_alura;
 use App\Models\temporada;
 use Illuminate\Support\Facades\DB;
@@ -10,6 +12,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
 use function GuzzleHttp\Promise\all;
+use function GuzzleHttp\Promise\each;
 
 class SeriesController extends Controller
 {
@@ -32,30 +35,49 @@ class SeriesController extends Controller
         return view('series.create');
 
     }
-    public function store(Request $request)
+    public function store(SerieFormRequest $request)
     {   
-        $serie=null;
-        DB::transaction(function() use ($request, &$serie) 
-        {       
-            $seriejson=laravel_alura::create($request->all());
-            $serie=$seriejson->nomeSerie;
-
-            for ($i=1; $i < $request->numerotemp; $i++) 
-            { 
-                $temporada=$seriejson->temporadas()->create([
-                    'id'=>$i
-                ]);      
+        $serie = DB::transaction(function () use ($request) {
+            $serie = laravel_alura::create($request->all());
+            $seasons = [];
+            // dd($->all());
+            for ($i = 1; $i <= $request->temporadaqt; $i++) {
+                $seasons[] = [
+                    'serieid' => $serie->id,
+                    'numerotemp' => $i,
+                ];
             }
+            temporada::insert($seasons);
+            $temporada =temporada::all();
+            $episodes = [];
 
-            for ($j=1; $j < $request->numerotemp; $j++) 
-            { 
-                $episodios=$temporada->episodio()->create([
-                    'id'=>$j
-                ]);      
-            }   
-        },5);     
+            foreach($temporada as $temporada)
+            {
+                $idtemp=$temporada->id;
+                // dd($idtemp);
+                for ($j = 1; $j <= $request->episodiosqt; $j++) {
+                    $episodes[] = [
+                        'idtemp' =>$idtemp,
+                        'numero' => $j
+                    ];
+                }
+                
+            }
+            // foreach ($temporada as $season) {
+            //     $idtemp=$temporada->id;
+            //     for ($j = 1; $j <= $request->episodiosqt; $j++) {
+            //         $episodes[] = [
+            //             'idtemp' =>$idtemp,
+            //             'numero' => $j
+            //         ];
+            //     }
+            // }
+            epsodio::insert($episodes);
+            // dd($serie);
+            return $serie;
+        });   
     
-        $request->session()->flash('mensagem.sucesso',"Serie {$serie} inserida.");
+        $request->session()->flash('mensagem.sucesso',"Serie {$serie->nomeSerie} inserida.");
         return redirect('/series');
     }
     public function destroy(laravel_alura $id)
