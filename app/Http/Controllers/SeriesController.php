@@ -34,24 +34,26 @@ class SeriesController extends Controller
     }
     public function store(Request $request)
     {   
-        // dd(laravel_alura::query()->get(['*']));
-        $seriejson=laravel_alura::create($request->all());
-        // dd($request->episodiosqt);
-        $serie=$seriejson->nomeSerie;
+        $serie=null;
+        DB::transaction(function() use ($request, &$serie) 
+        {       
+            $seriejson=laravel_alura::create($request->all());
+            $serie=$seriejson->nomeSerie;
 
-        for ($i=1; $i < $request->numerotemp; $i++) 
-        { 
-            $temporada=$seriejson->temporadas()->create([
-                'id'=>$i
-            ]);      
-        }
+            for ($i=1; $i < $request->numerotemp; $i++) 
+            { 
+                $temporada=$seriejson->temporadas()->create([
+                    'id'=>$i
+                ]);      
+            }
 
-        for ($j=1; $j < $request->numerotemp; $j++) 
-        { 
-            $episodios=$temporada->episodio()->create([
-                'id'=>$j
-            ]);      
-        }
+            for ($j=1; $j < $request->numerotemp; $j++) 
+            { 
+                $episodios=$temporada->episodio()->create([
+                    'id'=>$j
+                ]);      
+            }   
+        },5);     
     
         $request->session()->flash('mensagem.sucesso',"Serie {$serie} inserida.");
         return redirect('/series');
