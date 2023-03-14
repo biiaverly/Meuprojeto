@@ -14,13 +14,16 @@
 
         <span class="d-flex">
           <a href="{{route('modificar',$serie->id)}}" class="btn btn-primary btn-sm" >
-            E
+            Editar
             </a>
           <form action="{{ route('destroy', $serie->id) }}" method="post">
             @csrf
             <button class="btn btn-danger btn-sm">
-              X
+              Excluir
             </button>
+          <a href="{{route('episodios.index',$serie->id)}}" class="btn btn-primary btn-sm" >
+            Temporadas
+            </a>
           </form>
         </li>
       </span>
