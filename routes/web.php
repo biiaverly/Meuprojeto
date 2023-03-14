@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\EpisodiosController;
 use App\Http\Controllers\SeriesController;
+use App\Http\Controllers\TemporadaController;
 use App\Models\laravel_alura;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -30,5 +32,6 @@ Route::controller(SeriesController::class)->group(function(){
 Route::post('/series/modificar/{id}',[SeriesController::class,'update'])->name('update');
 Route::post('/series/destroy/{id}',[SeriesController::class,'destroy'])->name('destroy');
 Route::get('/series/modificar/{id}',[SeriesController::class,'modificar'])->name('modificar');
+Route::get('/series/temporada/{serie}',[TemporadaController::class,'index'])->name('episodios.index');
 
 

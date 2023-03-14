@@ -14,7 +14,7 @@ class laravel_alura extends Model
 
     public function temporadas()
     {
-        return $this->hasMany(temporada::class,'series.id');
+        return $this->hasMany(temporada::class,'serieid');
     }
 
     protected static function booted()
