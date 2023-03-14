@@ -25,6 +25,7 @@ class EloquentSeriesRepositorio implements SeriesRepositorio
             temporada::insert($seasons);
             $temporada =temporada::all();
             $episodes = [];
+
             // dd($temporada);
             foreach($temporada as $temporada)
             {
@@ -39,6 +40,7 @@ class EloquentSeriesRepositorio implements SeriesRepositorio
                 // dd($episodes);
             }
             epsodio::insert($episodes);
+
 
             return $serie;
         });
