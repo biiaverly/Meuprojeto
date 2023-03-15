@@ -38,7 +38,7 @@ class SeriesController extends Controller
     public function destroy(laravel_alura $id)
     {   
         $id->delete();
-        return redirect('series')->with('mensagem.sucesso',"Serie {$id->nomeSerie} removida.");
+        return redirect('/series')->with('mensagem.sucesso',"Serie {$id->nomeSerie} removida.");
     }
     public function modificar(laravel_alura $id)
     {

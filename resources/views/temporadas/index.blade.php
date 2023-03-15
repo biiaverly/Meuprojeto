@@ -2,7 +2,7 @@
     <ul class="list-group">
         @foreach ($serie->temporadas as $temporada)
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <a href="{{ route('episodios.index', $temporada->id) }}">
+                <a href="{{ route('episodios.index', $serie->id) }}">
 
                     Temporada {{ $temporada->numerotemp }} 
                 </a>              
