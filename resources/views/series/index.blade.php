@@ -21,7 +21,7 @@
             <button class="btn btn-danger btn-sm mb-2 mt-1">
               Excluir
             </button>
-          <a href="{{route('episodios.index',$serie->id)}}" class="btn btn-primary btn-sm mb-2 mt-1" >
+          <a href="{{route('temporada.index',$serie->id)}}" class="btn btn-primary btn-sm mb-2 mt-1" >
             Temporadas
             </a>
           </form>
