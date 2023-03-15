@@ -12,11 +12,6 @@ class EpisodiosController extends Controller
 {
     public function index(temporada $temporada)
     {   
-        // dd($temporada);
-        // foreach (temporada::all() as $temporadas) 
-        // {
-        //     dd($temporadas,$temporadas->episodios);
-        // }
 
         return view('Episodios.index',['temporada'=>$temporada]);
     }   
