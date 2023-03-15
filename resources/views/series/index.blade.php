@@ -13,15 +13,15 @@
         {{ $serie->nomeSerie }}
 
         <span class="d-flex">
-          <a href="{{route('modificar',$serie->id)}}" class="btn btn-primary btn-sm" >
+          <a href="{{route('modificar',$serie->id)}}" class="btn btn-primary btn-sm mb-2 mt-1" >
             Editar
             </a>
-          <form action="{{ route('destroy', $serie->id) }}" method="post">
+          <form action="{{ route('destroy', $serie->id) }}" method="post ">
             @csrf
-            <button class="btn btn-danger btn-sm">
+            <button class="btn btn-danger btn-sm mb-2 mt-1">
               Excluir
             </button>
-          <a href="{{route('episodios.index',$serie->id)}}" class="btn btn-primary btn-sm" >
+          <a href="{{route('episodios.index',$serie->id)}}" class="btn btn-primary btn-sm mb-2 mt-1" >
             Temporadas
             </a>
           </form>

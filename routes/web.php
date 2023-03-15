@@ -32,6 +32,7 @@ Route::controller(SeriesController::class)->group(function(){
 Route::post('/series/modificar/{id}',[SeriesController::class,'update'])->name('update');
 Route::post('/series/destroy/{id}',[SeriesController::class,'destroy'])->name('destroy');
 Route::get('/series/modificar/{id}',[SeriesController::class,'modificar'])->name('modificar');
-Route::get('/series/temporada/{serie}',[TemporadaController::class,'index'])->name('episodios.index');
+Route::get('/series/temporada/{serie}',[TemporadaController::class,'index'])->name('temporada.index');
+Route::get('/series/temporada/{temporada}/episodios',[EpisodiosController::class,'index'])->name('episodios.index');
 
 

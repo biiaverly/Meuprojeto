@@ -13,7 +13,7 @@ class temporada extends Model
 
     public function episodios(){
         
-        return $this->hasMany(epsodio::class,'idtemp','id');
+        return $this->hasMany(epsodio::class,'idtemp');
     }
 
     public function serie()
