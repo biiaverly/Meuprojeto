@@ -25,7 +25,7 @@ Route::get('/', function () {
 });
 // Route::resource('/series',SeriesController::class)->only(['index','create','store']);
 Route::controller(SeriesController::class)->group(function(){
-    Route::get('/series','index');
+    Route::get('/series','index')->name('home');
     Route::get('/series/create','create')->name('criar');
     Route::post('/series/salvar','store')->name('salvar');    
 });
@@ -35,7 +35,8 @@ Route::post('/series/destroy/{id}',[SeriesController::class,'destroy'])->name('d
 Route::get('/series/modificar/{id}',[SeriesController::class,'modificar'])->name('modificar');
 Route::get('/series/temporada/{serie}',[TemporadaController::class,'index'])->name('temporada.index');
 Route::get('/series/temporada/{temporada}/episodios',[EpisodiosController::class,'index'])->name('episodios.index');
-Route::post('/series/temporada/{temporada}/episodios',function(Request $request)
-{    
-    dd($request->all());
-});
+Route::post('/series/temporada/{temporada}/episodios',[EpisodiosController::class,'update']);
+// Route::post('/series/temporada/{temporada}/episodios',function(Request $request)
+// {    
+//     dd($request->all());
+// });

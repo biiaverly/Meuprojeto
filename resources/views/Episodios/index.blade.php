@@ -6,12 +6,17 @@
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 Episodio {{ $episodios->numero }}  
                 <input type="checkbox"
-                name="episodes[]"
+                name="episodios[]"
                 value="{{ $episodios->id }}"
-                @if ($episodios->watched) checked @endif />        
+                @if ($episodios->assistido) checked @endif />        
             </li>
             @endforeach
+            
         </ul>
-        <button class="btn btn-primary mt-2 mb-2">Salvar</button>
-    </form>
+        <button class="btn btn-primary btn-sm mb-2 mt-2">Salvar</button>
+
+        <a href="{{route('home')}}" class="btn btn-danger btn-sm mb-2 mt-2" >
+            Home
+            </a>    </form>
+
 </x-layout>

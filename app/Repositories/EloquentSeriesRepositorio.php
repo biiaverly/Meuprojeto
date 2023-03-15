@@ -23,19 +23,19 @@ class EloquentSeriesRepositorio implements SeriesRepositorio
             }
             temporada::insert($seasons);
             $temporada =temporada::all();
-            $episodes = [];
+            $episodios = [];
 
             foreach($temporada as $temporada)
             {
                 $idtemp=$temporada->id;
                 for ($j = 1; $j <= $request->episodiosqt; $j++) {
-                    $episodes[] = [
+                    $episodios[] = [
                         'idtemp' =>$idtemp,
                         'numero' => $j
                     ];
                 }
             }
-            epsodio::insert($episodes);
+            epsodio::insert($episodios);
 
 
             return $serie;
