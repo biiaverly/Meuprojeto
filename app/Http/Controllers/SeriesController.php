@@ -28,13 +28,10 @@ class SeriesController extends Controller
     public function create()
     {
         return view('series.create');
-
     }
     public function store(SerieFormRequest $request,SeriesRepositorio $repositorio)
     {   
-
-        $serie= $repositorio->add($request);
-    
+        $serie= $repositorio->add($request);    
         $request->session()->flash('mensagem.sucesso',"Serie {$serie->nomeSerie} inserida.");
         return redirect('/series');
     }
@@ -45,16 +42,11 @@ class SeriesController extends Controller
     }
     public function modificar(laravel_alura $id)
     {
-        // dd($id->temporadas());
-           $seriaa=$id;
-        // dd($seriaa);
+        $seriaa=$id;
         return view('series.edit',['seria'=>$seriaa]);
     }
     public function update(Request $request,laravel_alura $id)
     {   
-        // $novonome=$request->input('nomeSerie');
-        // dd($request->input());
-        // $id->nomeSerie=$novonome;
         $id->fill($request->input());
         $id->save();
         return redirect('/series')->with('mensagem.sucesso',"Serie {$id->nomeSerie} modificada.");

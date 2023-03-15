@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::table('epsodios', function (Blueprint $table) {
             $table->boolean('assistido')->default(false);
+            $table->boolean('idtemp');
+
 
         });
+        
     }
 
     /**

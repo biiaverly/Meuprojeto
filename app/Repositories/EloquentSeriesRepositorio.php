@@ -17,7 +17,7 @@ class EloquentSeriesRepositorio implements SeriesRepositorio
             $seasons = [];
             for ($i = 1; $i <= $request->temporadaqt; $i++) {
                 $seasons[] = [
-                    'serieid' => $serie->id,
+                    'series_id' => $serie->id,
                     'numerotemp' => $i,
                 ];
             }

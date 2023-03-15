@@ -24,9 +24,9 @@ class EpisodiosController extends Controller
         $temporada->episodios->each(function(epsodio $episodio) use ($ep_assistido)
         {
             $episodio->assistido=in_array($episodio->id,$ep_assistido);
-            // $episodio->save();
+            $episodio->save();
         });  
-        $temporada->push();    
+        // $temporada->episodios->push();    
 
         return to_route('episodios.index', $temporada->id)
             ->with('mensagem.sucesso', 'Episódios marcados como assistidos');

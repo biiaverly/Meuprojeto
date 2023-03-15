@@ -9,7 +9,6 @@ class epsodio extends Model
 {
     use HasFactory;
     protected $fillable = ['numero','id','assistido'];
-    public $timestamps='false';
 
     public function temporada()
     {
