@@ -24,7 +24,6 @@ class SeriesController extends Controller
         $request->session()->forget('mensagem.sucesso');
         return view('series.index')->with('series',$series)->with('mensagemSucesso',$mensagemSucesso); 
     }
-
     public function create()
     {
         return view('series.create');

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\EpisodiosController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\TemporadaController;
 use App\Models\laravel_alura;
@@ -33,10 +34,11 @@ Route::controller(SeriesController::class)->group(function(){
 Route::post('/series/modificar/{id}',[SeriesController::class,'update'])->name('update');
 Route::post('/series/destroy/{id}',[SeriesController::class,'destroy'])->name('destroy');
 Route::get('/series/modificar/{id}',[SeriesController::class,'modificar'])->name('modificar');
+
 Route::get('/series/temporada/{serie}',[TemporadaController::class,'index'])->name('temporada.index');
+
 Route::get('/series/temporada/{temporada}/episodios',[EpisodiosController::class,'index'])->name('episodios.index');
 Route::post('/series/temporada/{temporada}/episodios',[EpisodiosController::class,'update']);
-// Route::post('/series/temporada/{temporada}/episodios',function(Request $request)
-// {    
-//     dd($request->all());
-// });
+
+Route::get('/login',[LoginController::class,'index'])->name('login');
+Route::post('/login',[LoginController::class,'store'])->name('entrar');
