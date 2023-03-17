@@ -35,16 +35,19 @@ class SeriesController extends Controller
     public function store(SerieFormRequest $request,SeriesRepositorio $repositorio)
     {   
         $serie= $repositorio->add($request);   
-        $email= new SeriesCriadas(
-            $serie->nomeSerie,
-            $serie->id,
-            $request->temporadaqt,
-            $request->episodiosqt
-        );
+
         $arrayUsuarios=User::all();
         foreach($arrayUsuarios as $usuario)
         {
-            Mail::to($usuario)->send($email);
+            $email= new SeriesCriadas(
+                $serie->nomeSerie,
+                $serie->id,
+                $request->temporadaqt,
+                $request->episodiosqt
+            );
+            Mail::to($usuario)->queue($email);
+            // $when=now()->addSeconds(2);
+            // Mail::to($user)->later($when,$email);
         }
         $request->session()->flash('mensagem.sucesso',"Serie {$serie->nomeSerie} inserida.");
         return redirect('/series');
