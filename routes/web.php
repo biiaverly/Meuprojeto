@@ -6,6 +6,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\TemporadaController;
 use App\Models\laravel_alura;
+use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route as RoutingRoute;
 use Illuminate\Support\Facades\Route;
@@ -22,7 +23,7 @@ use PhpParser\Builder\Function_;
 |
 */
 Route::get('/', function () {
-    return view('/series','index');
+    return redirect('/series');
 });
 // Route::resource('/series',SeriesController::class)->only(['index','create','store']);
 Route::controller(SeriesController::class)->group(function(){
@@ -40,5 +41,14 @@ Route::get('/series/temporada/{serie}',[TemporadaController::class,'index'])->na
 Route::get('/series/temporada/{temporada}/episodios',[EpisodiosController::class,'index'])->name('episodios.index');
 Route::post('/series/temporada/{temporada}/episodios',[EpisodiosController::class,'update']);
 
-Route::get('/login',[LoginController::class,'index'])->name('login');
-Route::post('/login',[LoginController::class,'store'])->name('entrar');
+Route::controller(LoginController::class)->group(function()
+{   
+    Route::get('/login','index')->name('login');
+    Route::post('/login','login')->name('entrar');
+    Route::get('/logout','destroy')->name('logout');
+
+    Route::get('/login/registar','create')->name('criarUsuario');
+    Route::post('/login/registar','store')->name('salvarUsuario');
+});
+
+
