@@ -25,11 +25,9 @@
             <div class="collapse navbar-collapse" id="navbar">
                 <a href="/" class="navbar-brand">
                     <img src="/img/gato.jpg" high="70" width="70" alt="logogato">
-                </a>
-                @auth
-                    
+                </a>                    
+                <a class="navbar-brand" href="{{ route('home') }}" >Home</a>
                 <a class="navbar-brand" href="{{ route('login') }}" >Entrar</a>
-                @endauth
 
             </div>
             @auth

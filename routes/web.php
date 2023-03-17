@@ -5,6 +5,7 @@ use App\Http\Controllers\EpisodiosController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\SeriesController;
 use App\Http\Controllers\TemporadaController;
+use App\Http\Middleware\Authenticate;
 use App\Models\laravel_alura;
 use Illuminate\Auth\Events\Login;
 use Illuminate\Http\Request;
@@ -22,13 +23,11 @@ use PhpParser\Builder\Function_;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-Route::get('/', function () {
-    return redirect('/series');
-});
+Route::get('/', function () {return redirect('/series');});
 // Route::resource('/series',SeriesController::class)->only(['index','create','store']);
 Route::controller(SeriesController::class)->group(function(){
     Route::get('/series','index')->name('home');
-    Route::get('/series/create','create')->name('criar');
+    Route::get('/series/create','create')->name('criar')->middleware(Authenticate::class);
     Route::post('/series/salvar','store')->name('salvar');    
 });
 
@@ -36,10 +35,10 @@ Route::post('/series/modificar/{id}',[SeriesController::class,'update'])->name('
 Route::post('/series/destroy/{id}',[SeriesController::class,'destroy'])->name('destroy');
 Route::get('/series/modificar/{id}',[SeriesController::class,'modificar'])->name('modificar');
 
-Route::get('/series/temporada/{serie}',[TemporadaController::class,'index'])->name('temporada.index');
+Route::get('/series/temporada/{serie}',[TemporadaController::class,'index'])->name('temporada.index')->middleware(Authenticate::class);
 
 Route::get('/series/temporada/{temporada}/episodios',[EpisodiosController::class,'index'])->name('episodios.index');
-Route::post('/series/temporada/{temporada}/episodios',[EpisodiosController::class,'update']);
+Route::post('/series/temporada/{temporada}/episodios',[EpisodiosController::class,'update'])->middleware(Authenticate::class);
 
 Route::controller(LoginController::class)->group(function()
 {   
