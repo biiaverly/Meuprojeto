@@ -7,6 +7,7 @@ use App\Mail\SeriesCriadas;
 use App\Models\epsodio;
 use App\Models\laravel_alura;
 use App\Models\temporada;
+use App\Models\User;
 use App\Repositories\SeriesRepositorio;
 use Illuminate\Support\Facades\DB;
 
@@ -34,14 +35,17 @@ class SeriesController extends Controller
     public function store(SerieFormRequest $request,SeriesRepositorio $repositorio)
     {   
         $serie= $repositorio->add($request);   
-        // dd($serie);
         $email= new SeriesCriadas(
             $serie->nomeSerie,
             $serie->id,
             $request->temporadaqt,
             $request->episodiosqt
         );
-        Mail::to(Auth::user())->send($email);
+        $arrayUsuarios=User::all();
+        foreach($arrayUsuarios as $usuario)
+        {
+            Mail::to($usuario)->send($email);
+        }
         $request->session()->flash('mensagem.sucesso',"Serie {$serie->nomeSerie} inserida.");
         return redirect('/series');
     }
